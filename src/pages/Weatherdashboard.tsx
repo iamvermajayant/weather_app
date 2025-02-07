@@ -3,6 +3,7 @@ import { Button } from "../components/ui/button"
 import { useGeolocation } from "../hooks/use-geolocation";
 import { Skeleton } from "../components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import WeatherSkeleton from "../components/WeatherSkeleton";
 
 
 const Weatherdashboard = () => {
@@ -19,7 +20,7 @@ const Weatherdashboard = () => {
   }
 
   if(loadinglocation){
-    return <Skeleton />
+    return <WeatherSkeleton/>
    }
 
    if(locationError){
@@ -27,7 +28,7 @@ const Weatherdashboard = () => {
         <Alert variant="destructive">
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>Location Error</AlertTitle>
-          <AlertDescription>
+          <AlertDescription className="flex flex-col space-y-2">
             <p>{locationError}</p>
             <Button onClick={getLocation} variant="outline" className="w-fit">
               <MapPin className="mr-2 h-4 w-4" />
