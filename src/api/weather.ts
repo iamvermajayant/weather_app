@@ -11,7 +11,7 @@ class WeatherAPI {
         return `${endpoint}?${searchParams.toString()}`;
     }
 
-    private fetchData<T>(url:string):Promise<T>{
+    private async fetchData<T>(url:string):Promise<T>{
         const response = await fetch(url);
 
         if(!response.ok){
@@ -52,3 +52,5 @@ class WeatherAPI {
         return this.fetchData<GeocodingResponse[]>(url);
     }
 }
+
+export const weatherAPI = new WeatherAPI();
