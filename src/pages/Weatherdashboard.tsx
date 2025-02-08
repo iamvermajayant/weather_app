@@ -4,6 +4,7 @@ import { useGeolocation } from "../hooks/use-geolocation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import WeatherSkeleton from "../components/WeatherSkeleton";
 import { useForecastQuery, useReverseGeocodingQuery, useWeatherQuery } from "../hooks/use-wether";
+import CurrentWeatherCard from "../components/CurrentWeatherCard";
 
 
 const Weatherdashboard = () => {
@@ -13,7 +14,9 @@ const Weatherdashboard = () => {
   const locationQuery = useReverseGeocodingQuery(coordinates);
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
-  console.log(location);
+  console.log(locationQuery);
+  console.log(weatherQuery);
+  console.log(weatherQuery)
 
   const handleRefresh = () => {
     getLocation();
@@ -46,6 +49,29 @@ const Weatherdashboard = () => {
      )
 }
 
+const locationName = locationQuery.data?.[0]?.name;
+
+if(weatherQuery.error || forecastQuery.error){
+  return (
+    <Alert variant="destructive">
+      <AlertTriangle className="h-4 w-4" />
+      <AlertTitle>Location Error</AlertTitle>
+      <AlertDescription className="flex flex-col space-y-2">
+        <p>Failed to fetch weather data. please try again</p>
+        <Button onClick={getLocation} variant="outline" className="w-fit">
+          <MapPin className="mr-2 h-4 w-4" />
+          Enable Location
+        </Button>
+      </AlertDescription>
+    </Alert>
+ )
+}
+
+if(!weatherQuery.data || !forecastQuery.data){ 
+  return <WeatherSkeleton /> 
+}
+
+
 if(!coordinates){
   return (
      <Alert variant="destructive">
@@ -66,9 +92,22 @@ if(!coordinates){
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
-        <Button variant={'outline'} size={'icon'} onClick={handleRefresh} >
-          <RefreshCw className="h-4 w-4" />
+        <Button variant={'outline'} size={'icon'} onClick={handleRefresh} disabled={weatherQuery.isFetching || forecastQuery.isFetching} >
+          <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching  ? "animate-spin" : ""}`} />
         </Button>
+      </div>
+
+      <div className="grid gap-6">
+        <div>
+          <CurrentWeatherCard data={weatherQuery.data} locationName={locationName} />
+          {/* {current weather} */}
+          {/* hourly temperature */}
+        </div>
+
+        <div>
+          {/* {details} */}
+          {/* {forecast} */}
+        </div>
       </div>
     </div>
   )
