@@ -49,7 +49,8 @@ const Weatherdashboard = () => {
      )
 }
 
-const locationName = locationQuery.data?.[0]?.name;
+const locationName = locationQuery.data?.[0];
+
 
 if(weatherQuery.error || forecastQuery.error){
   return (
@@ -99,7 +100,8 @@ if(!coordinates){
 
       <div className="grid gap-6">
         <div>
-          <CurrentWeatherCard data={weatherQuery.data} locationName={locationName} />
+          <CurrentWeatherCard data={weatherQuery.data} 
+          locationName={locationName} />
           {/* {current weather} */}
           {/* hourly temperature */}
         </div>
