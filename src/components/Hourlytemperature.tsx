@@ -27,7 +27,22 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                         <LineChart data={chartData}>
                             <XAxis dataKey="time" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                             <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                            <Tooltip />
+                            <Tooltip content={({active, payload})=>{
+                                if(active && payload && payload.length){
+                                    return (
+                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                            <div>
+                                                <span>Tempertature</span>
+                                                <span>{payload[0].value}</span>
+                                            </div>
+                                            <div>
+                                                <span>Feels Like</span>
+                                                <span>{payload[1].value}</span>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            }} />
                             <Line type="monotone" dataKey="temp" stroke="#2563eb" strokeWidth={2} dot={false} />
                             <Line type="monotone" dataKey="feels_like" stroke="#64748b" strokeWidth={2} strokeDasharray="5 5" dot={false} />
                         </LineChart>
