@@ -5,6 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import WeatherSkeleton from "../components/WeatherSkeleton";
 import { useForecastQuery, useReverseGeocodingQuery, useWeatherQuery } from "../hooks/use-wether";
 import CurrentWeatherCard from "../components/CurrentWeatherCard";
+import HourlyTemperature from "../components/hourlytemperature";
 
 
 const Weatherdashboard = () => {
@@ -14,9 +15,7 @@ const Weatherdashboard = () => {
   const locationQuery = useReverseGeocodingQuery(coordinates);
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
-  console.log(locationQuery);
-  console.log(weatherQuery);
-  console.log(weatherQuery)
+  
 
   const handleRefresh = () => {
     getLocation();
@@ -99,9 +98,11 @@ if(!coordinates){
       </div>
 
       <div className="grid gap-6">
-        <div>
+        <div className="flex flex-col lg:flex-row gap-4">
           <CurrentWeatherCard data={weatherQuery.data} 
           locationName={locationName} />
+
+          <HourlyTemperature data={forecastQuery.data}/>
           {/* {current weather} */}
           {/* hourly temperature */}
         </div>
