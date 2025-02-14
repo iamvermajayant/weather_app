@@ -109,7 +109,7 @@ if(!coordinates){
           {/* hourly temperature */}
         </div>
 
-        <div>
+        <div className="grid gap-6 md:grid-cols-2 items-start">
           {/* {details} */}
           <WeatherDetails data={weatherQuery.data} />
           {/* {forecast} */}
