@@ -60,8 +60,8 @@ export function useGeolocation(){
                 isLoading: false
             });
         },{
-            enableHighAccuracy: true,
-            timeout: 9000,
+            enableHighAccuracy: false,
+            timeout: 15000,
             maximumAge: 0
         });
     }
