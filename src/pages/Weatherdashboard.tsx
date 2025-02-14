@@ -7,6 +7,7 @@ import { useForecastQuery, useReverseGeocodingQuery, useWeatherQuery } from "../
 import CurrentWeatherCard from "../components/CurrentWeatherCard";
 import HourlyTemperature from "../components/hourlytemperature";
 import WeatherDetails from "../components/weather-details";
+import WeatherForecast from "../components/weather-forecast";
 
 
 const Weatherdashboard = () => {
@@ -112,6 +113,7 @@ if(!coordinates){
           {/* {details} */}
           <WeatherDetails data={weatherQuery.data} />
           {/* {forecast} */}
+          <WeatherForecast data={forecastQuery.data} /> 
         </div>
       </div>
     </div>
