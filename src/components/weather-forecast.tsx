@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import type { ForecastData } from "../api/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 interface WeatherForecastProps {
     data: ForecastData;
@@ -44,6 +45,8 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
 
     const nextdays = Object.values(dailyForecast).slice(1, 6);
 
+    const formatTemp = (temp: number) => `${Math.round(temp)}`;
+
     console.log(dailyForecast)
     console.log(nextdays)
 
@@ -58,8 +61,19 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
                         return (
                             <div key={day.date} className="grid grid-cols-3 gap-4 rounded-lg border p-4">
                                 <div>
-                                    <p>{format(new Date(day.date * 1000), "EEE, MMM d")}</p>
-                                    <p>{day.weather.description}</p>
+                                    <p className="font-medium">{format(new Date(day.date * 1000), "EEE, MMM d")}</p>
+                                    <p className="text-sm text-muted-foreground capitalize">{day.weather.description}</p>
+                                </div>
+
+                                <div className="flex justify-center gap-4">
+                                    <span className="flex items-center text-blue-500">
+                                        <ArrowDown className="h-4 w-4 mr-1" />
+                                        {formatTemp(day.temp_min)}°
+                                    </span>
+                                    <span className="flex items-center text-red-500">
+                                        <ArrowUp className="h-4 w-4 mr-1" />
+                                        {formatTemp(day.temp_max)}°
+                                    </span>
                                 </div>
                             </div>
                         )
@@ -70,4 +84,4 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
     )
 }
 
-export default WeatherForecast
+export default WeatherForecast;
