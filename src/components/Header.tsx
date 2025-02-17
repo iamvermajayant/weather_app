@@ -15,7 +15,7 @@ const Header = () => {
                 <img src={theme === 'dark' ? '/logo.png' : '/logo2.png'} alt="Klimate logo" className="h-14" />
             </Link>
 
-            <div>
+            <div className="flex items-center gap-4">
                 {/* {search} */}
                 
                 <CitySearch/>
