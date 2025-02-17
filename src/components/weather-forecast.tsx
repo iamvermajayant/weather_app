@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import type { ForecastData } from "../api/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, Droplet, Wind } from "lucide-react";
 
 interface WeatherForecastProps {
     data: ForecastData;
@@ -73,6 +73,17 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
                                     <span className="flex items-center text-red-500">
                                         <ArrowUp className="h-4 w-4 mr-1" />
                                         {formatTemp(day.temp_max)}°
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-center gap-4">
+                                    <span className="flex items-center text-blue-500">
+                                        <Droplet className="h-4 w-4 mr-1" />
+                                        {day.humidity}
+                                    </span>
+                                    <span className="flex items-center text-red-500">
+                                        <Wind className="h-4 w-4 mr-1" />
+                                        {day.wind}m/s
                                     </span>
                                 </div>
                             </div>
