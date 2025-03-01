@@ -3,15 +3,26 @@ import { Button } from "./ui/button";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "./ui/command";
 import { useLocationSearchQuery } from "../hooks/use-wether";
 import { Loader2, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CitySearch = () => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState("");
+    const navigate = useNavigate();
 
     const { data: locations, isLoading } = useLocationSearchQuery(query);
 
     console.log(locations)
-    const handleSelect = (value: string) => {  }
+
+    
+
+    const handleSelect = (cityData: string) => { 
+        const [lat, lon, name, country] = cityData.split("|");
+        console.log(lat, lon, name, country);
+
+        navigate(`/city/${name}??lat=${lat}&lon=${lon}`);
+        setOpen(false);
+     }
 
     return (
         <>
