@@ -28,6 +28,10 @@ export function useSearchHistory() {
                 id: `${search.lat}-${search.lon}-${Date.now()}`,
                 searchedAt: Date.now(),
             };
+
+            const filteredHistory = history.filter((item) => !(item.lat === search.lat && item.lon=== search.lon));
+
+            const newHistory = [newSearch, ...filteredHistory].slice(0, 10);
         }
     })
 }
