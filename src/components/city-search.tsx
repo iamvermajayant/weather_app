@@ -48,7 +48,7 @@ const CitySearch = () => {
                 <CommandList>
                     {query.length > 2 && !isLoading && <CommandEmpty>No results found.</CommandEmpty>}
                     <CommandGroup heading="Favorites">
-                        <CommandItem>Calendar</CommandItem>
+                        {/* <CommandItem>Calendar</CommandItem> */}
                     </CommandGroup>
 
 
@@ -67,16 +67,18 @@ const CitySearch = () => {
                                 </div>
                                 {history.map((location) => (
                                     <CommandItem
-                                        key={`${location.lat}-${location.lon}`}
-                                        value={`${location.lat}${location.lon}|${location.name}|${location.country}`}
-                                        onSelect={handleSelect}
+                                    key={`${location.lat}-${location.lon}`}
+                                    value={`${location.lat}${location.lon}|${location.name}|${location.country}`}
+                                    onSelect={handleSelect}
                                     >
+                                        {console.log(history)}
                                         <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
-                                        <span>{location.name}</span>
+                                        <span>{location.query}</span>
+                                        <span>{location?.name}</span>
                                         {location?.state && <span>, {location?.state}</span>}
                                         <span className="text-sm text-muted-foreground">, {location?.country}</span>
                                         <span>
-                                            {format(location.searchedAt, "MMM dd, yyyy")}
+                                            {format(location.searchedAt, "MMM d, h:mm a")}
                                         </span>
                                     </CommandItem>
                                 ))}
