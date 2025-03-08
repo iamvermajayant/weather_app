@@ -23,6 +23,8 @@ const CitySearch = () => {
         const [lat, lon, name, country] = cityData.split("|");
         console.log(lat, lon, name, country);
 
+        console.log(cityData);
+
         addToHistory.mutate({
             query,
             name,
@@ -31,7 +33,7 @@ const CitySearch = () => {
             country
         });
 
-        navigate(`/city/${name}??lat=${lat}&lon=${lon}`);
+        navigate(`/city/${name}?lat=${lat}&lon=${lon}`);
         setOpen(false);
     }
 
@@ -56,8 +58,8 @@ const CitySearch = () => {
                         <>
                             <CommandSeparator />
                             <CommandGroup>
-                                <div>
-                                    <p>Recent Searches</p>
+                                <div className="flex items-center justify-between p-2 my-2">
+                                    <p className="text-xs text-muted-foreground">Recent Searches</p>
                                     <Button variant="ghost" size="sm" onClick={() => {
                                         clearHistory.mutate();
                                     }}>
@@ -68,10 +70,9 @@ const CitySearch = () => {
                                 {history.map((location) => (
                                     <CommandItem
                                     key={`${location.lat}-${location.lon}`}
-                                    value={`${location.lat}${location.lon}|${location.name}|${location.country}`}
+                                    value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                                     onSelect={handleSelect}
                                     >
-                                        {console.log(history)}
                                         <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
                                         <span>{location.query}</span>
                                         <span>{location?.name}</span>
@@ -98,7 +99,7 @@ const CitySearch = () => {
                             {locations.map((location) => (
                                 <CommandItem
                                     key={`${location.lat}-${location.lon}`}
-                                    value={`${location.lat}${location.lon}|${location.name}|${location.country}`}
+                                    value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                                     onSelect={handleSelect}
                                 >
                                     <Search className="h-4 w-4 mr-2" />
